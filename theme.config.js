@@ -32,11 +32,17 @@ const Footer = () => {
   );
 };
 
-// theme config
+// Nextra 4 theme config
 export default {
-  github: "https://github.com/sarthakvdev",
+  project: {
+    link: "https://github.com/sarthakxv"
+  },
   docsRepositoryBase: "https://github.com/sarthakvdev/internet-garden",
-  titleSuffix: " - Sarthak",
+  useNextSeoProps() {
+    return {
+      titleTemplate: "%s – Sarthak"
+    }
+  },
   logo: (
     <>
       <span className="mr-2 font-extrabold hidden md:inline">SARTHAK.</span>
@@ -127,12 +133,21 @@ export default {
       {/* --- */}
     </>
   ),
-  search: true,
-  prevLinks: true,
-  nextLinks: true,
-  darkMode: true,
-  footer: true,
-  footerText: <Footer />,
-  footerEditLink: true,
-  unstable_faviconGlyph: "",
+  search: {
+    component: true
+  },
+  toc: {
+    backToTop: true
+  },
+  editLink: {
+    component: true,
+    text: "Edit this page on GitHub"
+  },
+  feedback: {
+    content: "Question? Give us feedback →",
+    labels: "feedback"
+  },
+  footer: {
+    component: <Footer />
+  }
 };
