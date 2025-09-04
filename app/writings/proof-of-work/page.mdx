@@ -1,0 +1,82 @@
+import { Para } from "../../components.tsx"
+import { Callout } from "nextra/components"
+
+# Proof-of-Work (POW): Basics, Working & Features
+<Para desc="Understand the basics of POW and how it works in this beginner friendly blog" />
+
+<img src="/images/BUNoIYLts.jpg" alt="banner" />
+
+## Introduction / TL;DR
+Proof-of-work (POW) is a consensus protocol. It allows the nodes of the network to agree on the state of all information recorded on that blockchain. This prevents users from "[double spending](https://www.investopedia.com/terms/d/doublespending.asp#:~:text=Double%2Dspending%20is%20the%20risk,power%20necessary%20to%20manipulate%20it.)" their coins. It also ensures that the Ethereum chain is considerably difficult to attack or manipulate.
+
+- [Bitcoin](https://bitcoin.org/en/) and [Ethereum](https://ethereum.org/en/) are the most famous blockchains which use it.
+- It is the first Consensus Mechanism.
+
+## History
+The Proof-of-Work concept dates back to 1993. It was later on adapted to securing digital money by Hal Finney in 2004 through the idea of "reusable proof of work". POW uses the SHA-256 hashing algorithm.
+
+<Callout emoji="✅">
+  Make sure you have an understanding of  [transactions](https://ethereum.org/en/developers/docs/transactions/),  [consensus mechanisms](https://ethereum.org/en/developers/docs/consensus-mechanisms/) and  [blocks](https://ethereum.org/en/developers/docs/blocks/), before going further.
+</Callout>
+
+## Understanding Better
+On Blockchain, unlike a centralized model, if some transaction is done, all the miners check if it is true. If one person says that you owe them $10k, that will be a fraud, coz everyone else will falsify him.
+Everyone (miners) have the same record. That's a distributed ledger.
+
+Proof-of-Work is:
+- reliable
+- fair
+- transparent
+
+<Callout emoji="💡">
+  Fact: Bitcoin was the first adaptation of Finney's POW concept. It was used for solving the issue of [Double Spending](https://www.investopedia.com/terms/d/doublespending.asp#:~:text=Double%2Dspending%20is%20the%20risk,power%20necessary%20to%20manipulate%20it.). 
+</Callout>
+
+## How Proof-of-Work works?
+Miners spend a ton of time thinking about the hash code of the block, it's where the POW comes in. You have proof that you spent a long time trying to find the password that works.
+
+In the reward, the miner gets some of that respective blockchain's native cryptocurrency, eg. BTC. The reward received is according to the complexity of the hash they solve. Then all the transactions in that block are validated and the record of everyone in that network are updated to the new blocks.
+
+<Callout emoji="💡">
+  Proof-of-Work was initially created as a proposed solution to the growing problem of spam email.
+</Callout>
+
+## Features of Proof-of-Work
+- Secure: Reliable, Safe, Permanent, Fair and transparent
+- To do a fraudulent transaction, you need to own 51% of the network's power. It's impossible. Because for owning 51% of the network the hardware cost would be off the charts.
+- Consensus: Everyone has the same records, they need to complete every other miner to get rewards. When they find the password, they share it with others so they can add it to their ledgers.
+
+## That one major issue with "Proof-of-Work"
+A major criticism of proof-of-work is the amount of energy output required to keep the network safe. To maintain security and decentralization, Ethereum on proof-of-work consumes 73.2 TWh/Year. It is the energy equivalent of a medium-sized country like Austria. [*](https://ethereum.org/en/developers/docs/consensus-mechanisms/pow/)
+
+## General problems with POW
+- Bad impact on the environment due to high energy use 
+- Inability to scale
+	- The transaction time is low. 1 block/10mins.
+	- This brings us to pay large amounts of gas fees.
+- No Penalties. Miners with intent to malicious fraud are not punished.
+- For miners, it requires big investments to start. It requires specialized equipment.
+
+## Blockchain projects using POW
+- Bitcoin
+- Ethereum
+- Litecoin
+- Monero
+
+## Conclusion
+As you may have learnt till yet that proof-of-work may not be the best approach. It's still popular because Bitcoin and Ethereum use it.
+
+Better consensus mechanisms are already here, eg.  [Proof-of-Stack](https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/)  and  [Proof-of-History](https://medium.com/solana-labs/proof-of-history-a-clock-for-blockchain-cf47a61a9274) (Used by Solana). They are steadily replacing POW.
+
+There are blogs and videos available for them too. But at the moment they are relatively complex to understand. I'll be publishing blogs on them to make them easier to understand too.
+
+## References if you want to read further
+1. [What is "proof of work" or "proof of stake"?](https://www.coinbase.com/learn/crypto-basics/what-is-proof-of-work-or-proof-of-stake)
+2. [Proof of Work in Blockchain](https://www.youtube.com/watch?v=XLcWy1uV8YM0)
+3. [POW on Ethereum Docs](https://ethereum.org/en/developers/docs/consensus-mechanisms/pow/)
+
+---
+
+> Thanks for reading till the end.
+> **This blog is also published on my [Hashnode](https://sarthakv.hashnode.dev/proof-of-work-pow-basics-working-and-features)**.
+> If you want to comment anything, you can do there.

@@ -1,0 +1,176 @@
+import { Para } from "../../components.tsx";
+
+# Manage Muplite Github Accounts on Mac
+
+<Para desc="Learn how to setup more than one Github accounts in your Mac with the help of SSH." />
+
+![banner](https://media-exp1.licdn.com/dms/image/C5112AQFCG67b2OenuA/article-cover_image-shrink_720_1280/0/1568910750641?e=1668643200&v=beta&t=pAhsxoqcn0d9GI0GzHI0JahZH-tKj__omWsCY7W0WfM)
+
+Recently I switched from PC to Mac, and I was a bit uncomfortable and exhausted about one thing when it comes to the office works and personal works. I have a personal GitHub account where I experiment with new stuff and do my own projects. Also, I have another GitHub account for my office works. When I was first set up my office account and in my leisure times try to start working on a new project using my personal GitHub account, I faced a problem to clone my repositories and do git operations. It's because I have office GitHub account in my Mac, so it didn't recognize my personal account. So, as everyone will do, I googled it and tried to find a solution. Unfortunately, it was not that much easy, and I had to combine several articles and StackOverflow answers to come up with a working solution. Finally, I was able to do that, and I'll share that process with anyone who interests. So let's dig in!
+
+This article is a practical guide to setting up and manage multiple GitHub accounts in a single machine, so I assume you'll also involve the process.
+
+First of all, you should have two different active GitHub accounts. Let's assume your personal GitHub account is related to `personal@email.com`, and your office GitHub account is associated with `office@email.com`.
+
+## Create SSH keys for two GitHub accounts
+
+Next, we have to generate two SSH keys for corresponding GitHub accounts. The following command will create a key for your personal account.
+
+```bash
+cd ~/.ssh
+ssh-keygen -t rsa -b 4096 -C "personal@email.com"
+```
+
+This will ask for a name to save the key. Type id_rsa_personal to save it. After it asks for a password, leave it as empty and go ahead.
+
+The following command will create a key for your office account. When it asks for a name to save the key, type id_rsa_office, leave the password as empty like the previous step.
+
+```bash
+ssh-keygen -t rsa -b 4096 -C "office@email.com"
+```
+
+After successfully running the above command will create four files inside the .ssh directory. You can list those by running this command:
+
+```bash
+ls -al ~/.ssh
+```
+
+Generated 4 files will look like this,
+
+```bash
+id_rsa_personal
+id_rsa_personal.pub
+id_rsa_office
+id_rsa_office.pub
+```
+
+Now you have two keys. One for your personal account and one for your office account. Please note that the files with .pub extension are files we need to add on GitHub accounts. Next step is for that.
+
+## Add SSH keys to GitHub accounts
+
+Copy the personal account's public key using the following command. It'll copy the key into clipboard.
+
+```bash
+pbcopy < ~/.ssh/id_rsa_personal.pub
+```
+
+Go to GitHub and login to your personal account (`personal@email.com`). Follow these steps.
+
+1. Click your avatar on the top right corner and click Settings menu.
+2. On the left side, under the Personal settings menu, click on SSH and GPG keys.
+3. On the top right corner, click on New SSH key button.
+4. Add a meaningful title to identify your key.
+5. Press cmd + v to paste the copied key.
+6. Click on Add SSH key to add your key and enter your password if it is asked.
+
+Go through the same steps to add your office SSH key.
+
+## Create a configuration file to add two keys
+
+Using your terminal head back to the .ssh folder by typing cd ~/.ssh create a configuration file by using bellow command.
+
+```bash
+touch config
+```
+
+Open and edit the file using nano (or whatever editor you prefer).
+
+```bash
+nano config
+```
+
+Then add the following configurations for two accounts.
+
+```bash
+# Personal account
+Host github.com-personal
+   HostName github.com
+   User git
+   IdentityFile ~/.ssh/id_rsa_personal
+```
+
+```bash
+# Office account
+Host github.com-office
+   HostName github.com
+   User git
+   IdentityFile ~/.ssh/id_rsa_office
+```
+
+To save and exit press ctrl+o then press Enter and then press ctrl+x
+
+## Create git configuration files
+
+Using two git configuration files for our personal and office accounts will reduce the stress of managing those accounts by automating the manual process. We'll create a one git configuration file globally for our personal account and the other one in our Office works folder.
+
+Using your terminal navigate to the root folder to create a global git configuration file for your personal account.
+
+```bash
+cd ~
+nano .gitconfig
+```
+
+Then add following configurations.
+
+```bash
+[user]
+    name = Your Name
+    email = personal@email.com
+
+[includeIf "gitdir:~/office/"]
+
+    path = ~/office/.gitconfig
+```
+
+Please note that to work the office configuration above, git assumes you have all the office work-related stuff located in a folder called Office. So if it's not the case for you, please feel free to change above config according to your folder structure.
+
+Then, create an office work-related git configuration file. To do that, navigate to your Office folder and type following commands.
+
+```bash
+nano .gitconfig
+```
+
+Then add following configurations.
+
+```bash
+[user]
+    email = office@email.com
+```
+
+## Save key identities in local machine
+
+First, we have to remove any existing identities by running the following command.
+
+```bash
+cd ~
+ssh-add -D
+```
+
+After delete, check if the newly added keys were saved successfully by running the following command.
+
+```bash
+ssh-add -l
+```
+
+Now you have to authenticate the keys with GitHub by running following commands.
+
+```bash
+ssh -T github.com-personal
+ssh -T github.com-office
+```
+
+Now, we're almost done!
+
+## The final step, test using GitHub repository
+
+Go to your personal GitHub account and either you can create a new repository there or use an existing one. Let's assume your repository name is my-repo. Follow the instructions below and make a clone of your repository on your local machine.
+
+```bash
+git clone git@github.com-personal:USERNAME/my-repo.git
+```
+
+This will clone your repository, and rest is history. You know what to do, go ahead and create initial commit! Apply same procedure for office account. Please bear in mind, to succeed in this method git assumes all of the office work-related stuff is located in Office folder.
+
+If you have any thoughts, things need to clarify or any suggestions, please add it in the comments section and please don't forget to like and share. Hope you all enjoy :)
+
+> Fored the idea of blog from [this linkedin post](https://www.linkedin.com/pulse/manage-multiple-github-accounts-mac-nadun-malinda/) for ease in access and improvement.
